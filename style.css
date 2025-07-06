@@ -18,6 +18,11 @@
     color: green;
 }
 
+#product-app .product-info .woocommerce-Price-amount.amount {
+    color: #000; 
+    font-weight: bold;
+}
+
 .messages .error {
     color: red;
 }
