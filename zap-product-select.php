@@ -29,17 +29,19 @@ class WooProductPopupSelector {
                 <div class="messages">
                     <div v-for="(message, index) in messages" :key="index" :class="message.type" v-html="message.text"></div>
                 </div>
+                <p class="fs-3 mb-2">Find a Product</p>
+                <div v-if="productDetails" class="product-info">
+      <h2>{{ productDetails.name }}</h2>
+      <div v-html="productDetails.price_html"></div>
+      <a :href="productDetails.permalink" target="_blank" class="view-button">View Product</a>
+    </div>
 
     <select v-model="selectedProductId" @change="fetchProductPricing(selectedProductId)">
       <option disabled value="">Select a product</option>
       <option v-for="product in products" :key="product.id" :value="product.id">{{ product.name }}</option>
     </select>
 
-    <div v-if="productDetails" class="product-info">
-      <h2>{{ productDetails.name }}</h2>
-      <div v-html="productDetails.price_html"></div>
-      <a :href="productDetails.permalink" target="_blank" class="view-button">View Product</a>
-    </div>
+   
   </div>
 </div>
 
