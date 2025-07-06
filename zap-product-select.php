@@ -25,10 +25,10 @@ class WooProductPopupSelector {
     public function render_popup() {
         ob_start(); ?>
        <div id="product-app" class="product-popup">
-  <div class="product-container">
-    <div class="messages">
-      <div v-for="(message, index) in messages" :key="index" :class="message.type" v-html="message.text"></div>
-    </div>
+            <div class="product-container">
+                <div class="messages">
+                    <div v-for="(message, index) in messages" :key="index" :class="message.type" v-html="message.text"></div>
+                </div>
 
     <select v-model="selectedProductId" @change="fetchProductPricing(selectedProductId)">
       <option disabled value="">Select a product</option>
