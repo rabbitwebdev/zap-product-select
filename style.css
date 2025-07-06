@@ -1,0 +1,23 @@
+.product-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 2px solid #ccc;
+    padding: 2em;
+    z-index: 9999;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.messages {
+    margin-bottom: 1em;
+}
+
+.messages .info {
+    color: green;
+}
+
+.messages .error {
+    color: red;
+}
