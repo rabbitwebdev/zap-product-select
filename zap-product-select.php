@@ -31,9 +31,9 @@ class WooProductPopupSelector {
                 </div>
                 <p class="fs-3 mb-2">Find a Product</p>
                 <div v-if="productDetails" class="product-info">
-      <h2>{{ productDetails.name }}</h2>
-      <div v-html="productDetails.price_html"></div>
-      <a :href="productDetails.permalink" target="_blank" class="view-button">View Product</a>
+      <h3>{{ productDetails.name }}</h3>
+      <div class="fs-3" v-html="productDetails.price_html"></div>
+      <a :href="productDetails.permalink" class="view-button btn btn-primary">View Product</a>
     </div>
 
     <select v-model="selectedProductId" @change="fetchProductPricing(selectedProductId)">

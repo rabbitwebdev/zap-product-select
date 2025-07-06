@@ -1,11 +1,10 @@
 .product-popup {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    bottom: 50px;
+    right: 50px;
     background: white;
-    border: 2px solid #ccc;
-    padding: 2em;
+    border: 1px solid #ccc;
+    padding: 30px;
     z-index: 9999;
     color: #000;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
