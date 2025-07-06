@@ -29,10 +29,10 @@ class WooProductPopupSelector {
                 <div class="messages">
                     <div v-for="(message, index) in messages" :key="index" :class="message.type" v-html="message.text"></div>
                 </div>
-                <p class="fs-3 mb-2">Find a Product</p>
+                <p class="fs-4 fw-bold border-bottom mb-2">Find a Product</p>
                 <div v-if="productDetails" class="product-info">
-      <h3>{{ productDetails.name }}</h3>
-      <div class="fs-3" v-html="productDetails.price_html"></div>
+      <h2>{{ productDetails.name }}</h2>
+      <div class="fs-5" v-html="productDetails.price_html"></div>
       <a :href="productDetails.permalink" class="view-button btn btn-primary">View Product</a>
     </div>
 
