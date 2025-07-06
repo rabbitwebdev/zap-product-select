@@ -21,3 +21,17 @@
 .messages .error {
     color: red;
 }
+
+.view-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 14px;
+    background-color: #0071a1;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.view-button:hover {
+    background-color: #005177; 
+}

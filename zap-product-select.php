@@ -24,57 +24,62 @@ class WooProductPopupSelector {
 
     public function render_popup() {
         ob_start(); ?>
-        <div id="product-app" class="product-popup">
-            <div class="product-container">
-                <div class="messages">
-                    <div v-for="(message, index) in messages" :key="index" :class="message.type" v-html="message.text"></div>
-                </div>
+       <div id="product-app" class="product-popup">
+  <div class="product-container">
+    <div class="messages">
+      <div v-for="(message, index) in messages" :key="index" :class="message.type" v-html="message.text"></div>
+    </div>
 
-                <select v-model="selectedProductId" @change="fetchProductPricing(selectedProductId)">
-                    <option disabled value="">Select a product</option>
-                    <option v-for="product in products" :key="product.id" :value="product.id">{{ product.name }}</option>
-                </select>
-            </div>
-        </div>
+    <select v-model="selectedProductId" @change="fetchProductPricing(selectedProductId)">
+      <option disabled value="">Select a product</option>
+      <option v-for="product in products" :key="product.id" :value="product.id">{{ product.name }}</option>
+    </select>
 
-        <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            new Vue({
-                el: '#product-app',
-                data: {
-                    products: [],
-                    selectedProductId: '',
-                    messages: [],
-                },
-                mounted() {
-                    this.fetchProducts();
-                },
-                methods: {
-                    fetchProducts() {
-                        axios.get('<?php echo esc_url(rest_url('wp/v2/woo-products')); ?>')
-                            .then(response => {
-                                this.products = response.data;
-                            })
-                            .catch(error => {
-                                this.messages.push({ type: 'error', text: 'Error loading products.' });
-                            });
-                    },
-                    fetchProductPricing(productId) {
-                        axios.get('<?php echo esc_url(rest_url('wp/v2/woo-products/')); ?>' + productId)
-                            .then(response => {
-                                const product = response.data;
-                                this.messages = [
-                                    { type: 'info', text: 'Price: ' + product.price_html }
-                                ];
-                            })
-                            .catch(error => {
-                                this.messages = [{ type: 'error', text: 'Failed to load product details.' }];
-                            });
-                    }
-                }
-            });
-        });
-        </script>
+    <div v-if="productDetails" class="product-info">
+      <h2>{{ productDetails.name }}</h2>
+      <div v-html="productDetails.price_html"></div>
+      <a :href="productDetails.permalink" target="_blank" class="view-button">View Product</a>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  new Vue({
+    el: '#product-app',
+    data: {
+      products: [],
+      selectedProductId: '',
+      productDetails: null,
+      messages: [],
+    },
+    mounted() {
+      this.fetchProducts();
+    },
+    methods: {
+      fetchProducts() {
+        axios.get('<?php echo esc_url(rest_url('wp/v2/woo-products')); ?>')
+          .then(response => {
+            this.products = response.data;
+          })
+          .catch(() => {
+            this.messages.push({ type: 'error', text: 'Error loading products.' });
+          });
+      },
+      fetchProductPricing(productId) {
+        axios.get('<?php echo esc_url(rest_url('wp/v2/woo-products/')); ?>' + productId)
+          .then(response => {
+            this.productDetails = response.data;
+          })
+          .catch(() => {
+            this.productDetails = null;
+            this.messages = [{ type: 'error', text: 'Failed to load product details.' }];
+          });
+      }
+    }
+  });
+});
+</script>
         <?php
         return ob_get_clean();
     }
@@ -122,6 +127,7 @@ class WooProductPopupSelector {
             'id' => $product->get_id(),
             'name' => $product->get_name(),
             'price_html' => $product->get_price_html(),
+            'permalink' => get_permalink($product->get_id()),
         ];
     }
 }
